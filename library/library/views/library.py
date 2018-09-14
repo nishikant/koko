@@ -10,10 +10,10 @@ from ..models import Library
 def library_view(request):
     try:
         query = request.dbsession.query(Library)
-        one = query.filter(Library.name == 'Kids').first()
+        one = query.first()
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'name': one, 'project': 'library'}
+    return {'address': one.address, 'project': 'library', 'name': one.name}
 
 
 db_err_msg = """\

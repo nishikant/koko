@@ -7,6 +7,11 @@ import zope.sqlalchemy
 # Base.metadata prior to any initialization routines
 from .mymodel import MyModel  # flake8: noqa
 from .library import Library  # flake8: noqa
+from .category import Category  # flake8: noqa
+from .rental_policy import RentalPolicy  # flake8: noqa
+from .rental_item import RentalItem  # flake8: noqa
+from .subscriber import Subscriber  # flake8: noqa
+from .books import Books  # flake8: noqa
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup

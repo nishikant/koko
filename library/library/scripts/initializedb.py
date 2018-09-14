@@ -6,7 +6,6 @@ from pyramid.paster import (
     get_appsettings,
     setup_logging,
     )
-
 from pyramid.scripts.common import parse_vars
 
 from ..models.meta import Base
@@ -17,6 +16,11 @@ from ..models import (
     )
 from ..models import MyModel
 from ..models import Library
+from ..models import Books
+from ..models import Category
+from ..models import RentalItem
+from ..models import RentalPolicy
+from ..models import Subscriber
 
 
 def usage(argv):
@@ -44,5 +48,17 @@ def main(argv=sys.argv):
 
         model = MyModel(name='one', value=1)
         library = Library(name='Kids', address='Pune')
+
         dbsession.add(model)
         dbsession.add(library)
+
+        rental_policy = RentalPolicy(category_id=1, active=True, version=1, max_books=2, loan_rate=1 )
+        dbsession.add(rental_policy)
+
+        category = Category(name='regular', location='rack1', rental_policy_id = 1)
+        dbsession.add(category)
+        category = Category(name='fiction', location='rack2', rental_policy_id = 1)
+        dbsession.add(category)
+        category = Category(name='novels', location='rack3', rental_policy_id = 1)
+        dbsession.add(category)
+
