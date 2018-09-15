@@ -3,10 +3,12 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
-    DateTime,
+    ForeignKey,
 )
+from sqlalchemy.dialects.sqlite import DATETIME
 
 from .meta import Base
+import datetime
 
 class Subscriber(Base):
     __tablename__ = 'l_subscriber'
@@ -17,8 +19,13 @@ class Subscriber(Base):
     phone = Column(Text)
     address = Column(Text)
     city = Column(Text)
-    creation_date = Column(DateTime)
+    creation_date = Column(DATETIME, default=datetime.datetime.now)
     status = Column(Integer)
+    library_id = Column(
+        Integer,
+        ForeignKey('library.id', name='fk_library'),
+        nullable=True,
+    )
 
 Index('fname_idx', Subscriber.fname, mysql_length=255)
 Index('lname_idx', Subscriber.lname, mysql_length=255)
