@@ -34,7 +34,10 @@ def pay_view(request):
                 id=row.rental_policy_id
             ).one()
 
-            pay_list['total'] = pay_list['total'] + rpol_query.loan_rate * row.loan_period
+            if row.loan_period < rpol_query.min_days:
+                pay_list['total'] = pay_list['total'] + rpol_query.min_rate
+            else:
+                pay_list['total'] = pay_list['total'] + rpol_query.min_rate + rpol_query.loan_rate * (row.loan_period - rpol_query.min_days)
 
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
