@@ -1,0 +1,17 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+  {%set library_id, library_name = category_list['library']%}
+  <h1><span class="font-semi-bold">Library</span> <span class="smaller"></span></h1>
+  <p class="lead"><span class="font-normal"></span>
+  <br>
+  {% for name,id in category_list.items() %}
+    {% if name == 'library' -%}
+      <h2>Categories in {{library_name}} library</h2>
+    {% else -%}
+      <a href="/books?category={{id}}&library={{library_id}}">{{id}}: {{ name }} </a></p>
+    {% endif -%}
+  {% endfor %}
+</div>
+{% endblock content %}
