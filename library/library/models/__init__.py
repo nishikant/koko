@@ -12,6 +12,7 @@ from .rental_policy import RentalPolicy  # flake8: noqa
 from .rental_item import RentalItem  # flake8: noqa
 from .subscriber import Subscriber  # flake8: noqa
 from .books import Books  # flake8: noqa
+from .lib_cat import LibraryCategory  # flake8: noqa
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup

@@ -21,6 +21,7 @@ from ..models import Category
 from ..models import RentalItem
 from ..models import RentalPolicy
 from ..models import Subscriber
+from ..models import LibraryCategory
 
 
 def usage(argv):
@@ -49,10 +50,13 @@ def main(argv=sys.argv):
         model = MyModel(name='one', value=1)
         dbsession.add(model)
 
+        #Populate Library
+
         library = Library(name='Kids', address='Pune')
         dbsession.add(library)
         lib_id = dbsession.query(Library).filter_by(name = 'Kids').one()
 
+        #Populate Subscriber
         subscriber = Subscriber(
             fname = 'Nishikant',
             lname = 'Sevalkar',
@@ -92,6 +96,15 @@ def main(argv=sys.argv):
                 rental_policy_id = rental_p_id.id,
             )
             dbsession.add(category)
+            transaction.manager.commit()
+
+            category_q = dbsession.query(Category).filter_by(name=cat).one()
+            lib_name = dbsession.query(Library).filter_by(name = 'Kids').one()
+            lib_cat = LibraryCategory(
+                library_id = lib_name.id,
+                category_id = category_q.id,
+            )
+            dbsession.add(lib_cat)
             transaction.manager.commit()
 
         reg_cat_id = dbsession.query(Category).filter_by(name='regular').one()

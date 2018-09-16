@@ -13,7 +13,7 @@ def library_view(request):
         one = query.first()
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'address': one.address, 'project': 'library', 'name': one.name}
+    return {'address': one.address, 'id': one.id, 'name': one.name}
 
 
 db_err_msg = """\

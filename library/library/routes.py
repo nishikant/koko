@@ -1,4 +1,10 @@
 def includeme(config):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
-    config.add_route('library', '/library/')
+    config.add_route('library', '/library')
+    config.add_route('subscriber', '/subscriber')
+    config.add_route('books', '/books')
+    config.add_route('category', '/category')
+    config.add_route('rent', '/rent')
+    config.add_route('cart', '/cart')
+    config.add_route('pay', '/pay')
