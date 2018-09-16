@@ -69,14 +69,14 @@ def main(argv=sys.argv):
         )
         dbsession.add(subscriber)
 
-        # ['book_type', 'rental_policy_name', 'location']
+        # CATEGORY ['book_type', 'rental_policy_name', 'location', 'cost']
         supported_type = [
-            ('regular', 'regular', 'rack1'),
-            ('fiction', 'regular', 'rack2'),
-            ('novel', 'regular', 'rack3'),
+            ('regular', 'regular', 'rack1', 1.5),
+            ('fiction', 'fiction', 'rack2', 3.0 ),
+            ('novel', 'novel', 'rack3', 1.5),
         ]
 
-        for (cat, policy, loc)  in supported_type:
+        for (cat, policy, loc, rate)  in supported_type:
 
             if not dbsession.query(RentalPolicy).filter_by(name=policy).first():
                 rental_policy = RentalPolicy(
@@ -84,7 +84,7 @@ def main(argv=sys.argv):
                     active = True,
                     version = 1,
                     max_books = 2,
-                    loan_rate = 1
+                    loan_rate = rate,
                 )
                 dbsession.add(rental_policy)
                 transaction.manager.commit()
