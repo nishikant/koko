@@ -1,8 +1,15 @@
 {% extends "layout.jinja2" %}
 
 {% block content %}
+
 <div class="content">
-  <h1><span class="font-semi-bold">Library</span> <span class="smaller"> Listing</span></h1>
-  <p class="lead">Welcome to <span class="font-normal">Library</span>, a&nbsp;Pyramid application &nbsp;for<br><span class="font-normal"><a href="/category?library={{id}}">{{ name }}</a></span>.</p>
-</div>
+  <p class="lead"><span class="font-normal"></span>
+  <h2>Library listing</h2>
+  {% for lib_id, lib_name, lib_address in library_list['library']%}
+     <p>{{lib_id}}: <a href=/category?library={{lib_id}}>{{lib_name}}</a>
+     {% for user_id, user_fname, user_lname in library_list['subscriber']%}
+         <p>&nbsp;&nbsp;&nbsp;&nbsp;{{user_id}}: <a href=/pay?subscriber={{user_id}}>{{user_fname}} {{user_lname}}</a></p>
+     {% endfor %}
+  {% endfor %}
+ </div>
 {% endblock content %}

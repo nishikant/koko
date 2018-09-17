@@ -4,16 +4,25 @@ from pyramid.view import view_config
 from sqlalchemy.exc import DBAPIError
 
 from ..models import Library
+from ..models import Subscriber
 
 
 @view_config(route_name='library', renderer='../templates/library.jinja2')
 def library_view(request):
+    library_list = {}
+    library_list['subscriber'] = []
+    library_list['library'] = []
     try:
         query = request.dbsession.query(Library)
-        one = query.first()
+        for lib in query:
+            library_list['library'].append((lib.id, lib.name, lib.address))
+            sub = request.dbsession.query(Subscriber).filter_by(library_id = lib.id)
+            for user in sub:
+                library_list['subscriber'].append((user.id, user.fname, user.lname))
+
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'address': one.address, 'id': one.id, 'name': one.name}
+    return dict(library_list=library_list)
 
 
 db_err_msg = """\
