@@ -17,3 +17,6 @@ cd ~/koko/library/
 pip install -e .
 pip install -e ".[testing]"
 
+#initialize_library_db development.ini
+
+pserve --reload development.ini
